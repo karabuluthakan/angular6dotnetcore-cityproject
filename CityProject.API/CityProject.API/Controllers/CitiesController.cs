@@ -28,7 +28,7 @@ namespace CityProject.API.Controllers
         {
             var cities = _appRepository.GetCities();
             var citiesToReturn = _mapper.Map<List<CityForListDto>>(cities);
-                
+
             return Ok(cities);
         }
 
@@ -39,6 +39,15 @@ namespace CityProject.API.Controllers
             _appRepository.Add(city);
             _appRepository.SaveAll();
             return Ok(city);
+        }
+
+        [HttpGet]
+        [Route("detail")]
+        public ActionResult GetCityById(int id)
+        {
+            var city = _appRepository.GetCityById(id);
+            var cityToReturn = _mapper.Map<CityForDetailDto>(city);
+            return Ok(cityToReturn);
         }
     }
 }

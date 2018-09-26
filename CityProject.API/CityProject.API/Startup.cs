@@ -29,7 +29,10 @@ namespace CityProject.API
             services.AddDbContext<DataContext>(x =>
                 x.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             services.AddAutoMapper();
-            services.AddMvc();
+            services.AddMvc().AddJsonOptions(opt =>
+                {
+                    opt.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
+                }); ;
             services.AddCors();
             services.AddScoped<IAppRepository, AppRepository>();
         }
