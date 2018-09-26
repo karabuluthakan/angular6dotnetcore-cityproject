@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using CityProject.API.Data;
 using CityProject.API.Dtos;
+using CityProject.API.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -29,6 +30,15 @@ namespace CityProject.API.Controllers
             var citiesToReturn = _mapper.Map<List<CityForListDto>>(cities);
                 
             return Ok(cities);
+        }
+
+        [HttpPost]
+        [Route("add")]
+        public ActionResult Add([FromBody]City city)
+        {
+            _appRepository.Add(city);
+            _appRepository.SaveAll();
+            return Ok(city);
         }
     }
 }
